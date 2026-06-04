@@ -1,6 +1,6 @@
 // НАСТРОЙКИ
 const CONFIG = {
-    devName: "Александр" // ← Имя именинника
+    devName: "Вова" // ← Имя именинника
 };
 
 // Состояние
@@ -31,7 +31,7 @@ function startTimer() {
 // === LEVEL 1: CSS BUGS ===
 function initLevel1() {
     const bugs = [
-        { id: 'bug-nav', fix: () => { document.getElementById('bug-nav').style.zIndex = '10'; } },
+        { id: 'bug-nav', fix: () => { document.getElementById('bug-nav').style.opacity = '1'; document.getElementById('bug-nav').style.zIndex = '10'; } },
         { id: 'bug-hero', fix: () => { document.getElementById('bug-hero').style.marginTop = '0'; } },
         { id: 'bug-text', fix: () => { document.getElementById('bug-text').style.whiteSpace = 'normal'; } },
         { id: 'bug-image', fix: () => { 
