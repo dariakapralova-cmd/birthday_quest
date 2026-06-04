@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-End Birthday Quest 🎂</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="header">
+            <span class="badge">🖥️ Front-End Mode</span>
+            <span class="badge">Level: <span id="level-num">1</span>/3</span>
+            <span class="badge" id="timer">00:00</span>
+        </div>
+
+        <!-- Уровень 1: Pixel Perfect Emergency -->
+        <div id="level-1" class="level active">
+            <h2>🚨 Layout Emergency</h2>
+            <p>Заказчик сказал "сайт поехал в Safari"! Найди и пофиксь 5 CSS-багов кликнув на них:</p>
+            
+            <div id="browser-mockup">
+                <div class="browser-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="url">localhost:3000</span>
+                </div>
+                <div id="broken-website">
+                    <nav id="bug-nav">z-index: -1</nav>
+                    <div id="bug-hero">Hero Section</div>
+                    <div class="content">
+                        <div id="bug-card">
+                            <div id="bug-image">404 Image</div>
+                            <p id="bug-text">Очень длинный текст без переноса который ломает всю grid-сетку и вылезает за пределы контейнера на 200px</p>
+                            <button id="bug-button">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bugs-status">Багов осталось: <span id="bugs-left">5</span></div>
+        </div>
+
+        <!-- Уровень 2: Code Review -->
+        <div id="level-2" class="level">
+            <h2>👀 PR Review: UserCard.jsx</h2>
+            <p>Джун отправил код в main в пятницу. Найди баг, который уронит прод:</p>
+            
+            <div class="vscode-window">
+                <div class="vscode-header">
+                    <span class="tab active"><span class="react-icon">⚛</span> UserCard.jsx</span>
+                    <span class="tab">package.json</span>
+                </div>
+                <div class="editor">
+                    <div class="line" onclick="checkBug(false, this)">
+                        <span class="num">1</span>
+                        <span><span class="keyword">const</span> <span class="func">UserCard</span> = ({ user }) => {</span>
+                    </div>
+                    <div class="line" onclick="checkBug(false, this)">
+                        <span class="num">2</span>
+                        <span>  <span class="keyword">const</span> [count, setCount] = <span class="func">useState</span>(<span class="num-val">0</span>);</span>
+                    </div>
+                    <div class="line bug-line" onclick="checkBug(true, this)">
+                        <span class="num">3</span>
+                        <span>  <span class="func">useEffect</span>(() => {</span>
+                    </div>
+                    <div class="line bug-line-inner" onclick="checkBug(true, this)">
+                        <span class="num">4</span>
+                        <span>    <span class="func">setCount</span>(count + <span class="num-val">1</span>);</span>
+                    </div>
+                    <div class="line bug-line-inner" onclick="checkBug(true, this)">
+                        <span class="num">5</span>
+                        <span>  }); <span class="comment">// ← Кликни сюда</span></span>
+                    </div>
+                    <div class="line" onclick="checkBug(false, this)">
+                        <span class="num">6</span>
+                        <span class="comment">  // TODO: optimize before demo</span>
+                    </div>
+                    <div class="line" onclick="checkBug(false, this)">
+                        <span class="num">7</span>
+                        <span>  <span class="keyword">return</span> <span class="tag">&lt;div&gt;</span>{user.name}<span class="tag">&lt;/div&gt;</span>;</span>
+                    </div>
+                    <div class="line" onclick="checkBug(false, this)">
+                        <span class="num">8</span>
+                        <span>};</span>
+                    </div>
+                </div>
+            </div>
+            <div id="review-result"></div>
+        </div>
+
+        <!-- Уровень 3: Webpack Build -->
+        <div id="level-3" class="level">
+            <h2>🚀 Production Build</h2>
+            <p>node_modules весят 2GB. Успей нажать <kbd>npm run build</kbd> когда индикатор в зоне "Success":</p>
+            
+            <div class="terminal">
+                <div class="terminal-header">bash — node v18.12.1</div>
+                <div class="terminal-body">
+                    <div class="cmd-line">$ npm run build</div>
+                    <div class="output-line warn">> webpack 5.76.0</div>
+                    <div class="output-line">Building for production...</div>
+                    <div id="memory-warning" class="output-line error" style="display:none;">⚠ JavaScript heap out of memory</div>
+                    <div class="progress-area">
+                        <div id="build-bar">
+                            <div id="build-slider"></div>
+                            <div id="success-zone"></div>
+                            <span class="zone-label">Success Zone</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="build-btn" onclick="tryDeploy()">npm run build</button>
+                <div id="build-result"></div>
+            </div>
+        </div>
+
+        <!-- Финал -->
+        <div id="final" class="level">
+            <h1>🎉 Work/Life Balance Restored!</h1>
+            <div id="cake-container">
+                <div class="cake">🎂</div>
+                <div class="candle" style="left:30%">🔥</div>
+                <div class="candle" style="left:50%">🔥</div>
+                <div class="candle" style="left:70%">🔥</div>
+            </div>
+            <div class="birthday-card">
+                <h3>С днем рождения, <span id="dev-name">Frontend Dev</span>! 🎊</h3>
+                <p>Пусть:</p>
+                <ul class="wishes">
+                    <li>✨ Все твои <code>useEffect</code>'ы имеют правильные deps</li>
+                    <li>🎨 Pixel Perfect достигается с первого раза</li>
+                    <li>🐛 Баги воспроизводятся только в IE11 (которым никто не пользуется)</li>
+                    <li>⚡ Сборка занимает меньше 3 секунд</li>
+                    <li>📱 Safari не ломает твою сетку</li>
+                </ul>
+                <p class="footer">P.S. <code>rm -rf node_modules && npm install</code> — не решение всех проблем, но сегодня можно не париться!</p>
+            </div>
+            <button onclick="location.reload()" class="restart-btn">git reset --hard && npm start</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
